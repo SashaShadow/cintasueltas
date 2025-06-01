@@ -81,7 +81,7 @@ const Fecha = () => {
         datosCompraCopy.cantidad = Number(cantidad)
 
         try {
-            const crearTicket = await axios.post(`${backendEnd}tickets`, datosCompraCopy)
+            const crearTicket = await axios.post(`${backendEnd}tickets/`, datosCompraCopy)
             if (crearTicket.data.status_code !== 200) throw new Error("Error al crear la fecha")
             
             const newA = document.createElement("a")
