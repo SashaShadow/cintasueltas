@@ -26,7 +26,7 @@ const VentaEntradas = () => {
         const apiCalls = async () => {
             try {
                 setLoader(true)
-                const getFechas = await axios.get(`${backendEnd}fechas`)
+                const getFechas = await axios.get(`${backendEnd}fechas/`)
                 if (getFechas.data.status_code !== 200) throw new Error("Error al traer datos de las fechas")
                 
                 setFechas(getFechas.data.data)
@@ -43,7 +43,7 @@ const VentaEntradas = () => {
         try {
             let id_fecha = fecha._id
             setLoader(true)
-            const getTickets = await axios.get(`${backendEnd}tickets/byfecha/${id_fecha}`)
+            const getTickets = await axios.get(`${backendEnd}tickets/byfecha/${id_fecha}/`)
 
             if (getTickets.data.status_code !== 200) {
                 setTickets([])

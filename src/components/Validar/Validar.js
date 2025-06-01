@@ -24,7 +24,7 @@ const Validar = () => {
       const ticketCheck = async () => {
         try {
           const id = result
-          const searchTicket = await axios.get(`${backendEnd}tickets/${id}`)
+          const searchTicket = await axios.get(`${backendEnd}tickets/${id}/`)
 
           if (searchTicket.data.status_code !== 200) throw new Error("Error al validar la entrada")
 

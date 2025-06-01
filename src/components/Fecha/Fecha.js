@@ -36,7 +36,7 @@ const Fecha = () => {
                 const apiCalls = async () => {
                     try {
                         setLoader(true)
-                        const getFecha = await axios.get(`${backendEnd}fechas/${urlDividido[urlDividido.length - 1]}`)
+                        const getFecha = await axios.get(`${backendEnd}fechas/${urlDividido[urlDividido.length - 1]}/`)
                         if (getFecha.data.status_code !== 200) throw new Error("Error al traer datos de las fechas")
                         
                         setFecha(getFecha.data.data)
