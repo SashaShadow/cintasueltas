@@ -1,0 +1,161 @@
+
+body {
+	color: #ffffff;
+	background-color: #070110;
+	background-image:radial-gradient(closest-side, rgba(8, 0, 22, 0.1), 75%, rgba(8, 0, 22, 0.5)), 
+    linear-gradient(0deg, transparent calc(100% - 1.5px), #824e95 calc(100% - 1.5px), #c983cb 100%), 
+    linear-gradient(90deg, transparent calc(100% - 1.5px), #a030b0 calc(100% - 1.5px), #c477c7 100%);
+    background-size: 100% 100%, 2rem 2rem, 2rem 2rem;
+	background-position: 50% 50%;
+    text-align: center;
+}
+
+.Loader {
+    text-align: center;
+}
+
+.ContHome {
+    display: grid;
+    justify-content: center;
+}
+
+.ContFechas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 2rem;
+    gap: 2rem;
+    padding-bottom: 5rem; 
+}
+
+.FechaIndCont {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #bd87d1;
+    border-radius: 6px;
+    min-height: 25rem;
+    background-color: #070110;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.2rem;
+    padding: 1rem;
+}
+
+.FechaIndCont img {
+    max-width: 350px;
+    max-height: 450px;
+    margin-top: 0.4rem;
+}
+
+.FechaIndCont:hover {
+    transform: scale(1.02);
+}
+
+.UbiFecha {
+    display: flex;
+    justify-content: center;
+    color: #824e95;
+}
+
+.iconCustom {
+  vertical-align: bottom;
+}
+
+.NombreFecha {
+    font-weight: bold;
+    text-align: center;
+}
+
+.FechaHora {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Pantallas medianas: tablets y pantallas entre 768px y 1024px */
+@media (max-width: 1024px) {
+  .ContFechas {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .FechaIndCont img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+@media (max-width: 600px) {
+  .ContFechas {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    width: 100%;
+  }
+
+  .ContHome {
+    margin: 2rem 1rem !important;
+  }
+
+  .FechaIndCont {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    gap: 0.5rem;
+    cursor: pointer;
+    box-sizing: border-box;
+    min-height: unset;
+  }
+
+  .FechaIndCont:hover {
+    background-color: #a130b096;
+  }
+
+  .FechaIndCont:active {
+    background-color: #a130b096;
+    transform: scale(0.98);
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .ImgFecha {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .FechaInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  .UbiFecha {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+
+  .NombreFecha {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0;
+    word-break: break-word;
+  }
+
+  .FechaHora {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    flex-wrap: wrap;
+  }
+}

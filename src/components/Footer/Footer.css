@@ -1,0 +1,49 @@
+.AppFooter {
+  position: static; 
+  background-color: #1a263a;
+  padding: 1rem 2rem;
+  width: 100%;
+  color: white;
+}
+
+
+.FooterContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 3rem;
+}
+
+.LogoSideBar {
+  max-height: 80%;
+  cursor: pointer;
+}
+
+.FooterIcons button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  margin-left: 1rem;
+  color: #ffffff;
+  transition: color 0.3s;
+}
+
+.FooterIcons button:hover {
+  color: #6b3b8e;
+}
+
+
+.AppContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+
+.MainContent {
+  flex-grow: 1;       
+  flex-shrink: 0;    
+  flex-basis: auto;  
+  overflow: auto;     
+}

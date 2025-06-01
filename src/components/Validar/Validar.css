@@ -1,0 +1,30 @@
+
+.ContHome {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 4rem 0 4rem;
+    color: #fff;
+}
+
+.blanco {
+  color: white;
+  font-weight: bolder;
+}
+
+.EntradaValida {
+  display: grid;
+  border-style: dashed;
+  border-color: rgb(155, 110, 197);
+  border-radius: 5px;
+  background-color: rgb(64, 18, 52);
+  color: white;
+  margin: 0 auto;
+  max-width: 25rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.Qr {
+  margin: 0 auto 2rem;
+}

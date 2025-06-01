@@ -1,0 +1,27 @@
+.ejExito {
+    color: black;
+}
+
+.EntradaValida {
+    background-color: black;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.LogoEntrada {
+    max-width: 60%;
+    max-height: 60%;
+    margin: 0 auto;
+}
+
+.Qr {
+    margin-top: -1rem;
+    max-width: 70%;
+    max-height: 70%;
+}
+
+.BotonCentrado {
+    margin: 1rem auto 2rem;
+}

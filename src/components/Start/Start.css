@@ -1,0 +1,149 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:400|Open+Sans:700);
+
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+.ContStart {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ContLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace !important;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.GestorTitle {
+    color: #fff;
+    text-shadow:
+      0 0 7px #d747c9,
+      0 0 10px #bc32c0,
+      0 0 21px #c440d2,
+      0 0 42px rgba(216, 148, 184, 0.394),
+      0 0 82px #0fa,
+      0 0 92px rgb(255, 0, 136),
+      0 0 102px rgb(255, 0, 204),
+      0 0 151px #0fa;
+}
+
+.blinktext {
+    color: #fff;
+    text-shadow:
+      0 0 7px #d747c9,
+      0 0 10px #bc32c0,
+      0 0 21px #c440d2,
+      0 0 42px rgba(216, 148, 184, 0.394),
+      0 0 82px #0fa,
+      0 0 92px rgb(255, 0, 136),
+      0 0 102px rgb(255, 0, 204),
+      0 0 151px #0fa;
+      cursor: pointer;
+    font-family: "Press Start 2P", system-ui !important; 
+}
+
+.parpadea {
+  
+  animation-name: parpadeo;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes parpadeo{  
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes parpadeo {  
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+   100% { opacity: 1.0; }
+}
+
+@keyframes parpadeo {  
+  0% { opacity: 1.0; }
+   50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+}
+
+section.text {
+  position: absolute;
+  width: 100%;
+  min-width: 800px;
+  text-align: center;
+  top: 50%;
+  margin-top: -55px;
+}
+
+
+.testLetra {
+  font-family: "Oswald", Sans-serif;
+  font-weight: 400;
+  text-shadow:
+      0 0 7px #d747c9,
+      0 0 10px #bc32c0,
+      0 0 21px #c440d2,
+      0 0 42px rgba(216, 148, 184, 0.394),
+      0 0 82px #0fa,
+      0 0 92px rgb(255, 0, 136),
+      0 0 102px rgb(255, 0, 204),
+      0 0 151px #0fa;
+      margin-top: -1rem;
+}
+
+.testLetra span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+span.star {
+  font-size: 20px;
+}
+
+.LogoCS {
+  max-width: 50%;
+  max-height: 50%;
+}
+
+
+.ContLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace !important;
+  flex-direction: column;
+  z-index: 1;
+  position: relative;
+  padding: 1rem;
+  max-width: 100%;
+}
+
+.LogoCS {
+  max-width: 50%;
+  max-height: 50%;
+  height: auto;
+  width: auto;
+}

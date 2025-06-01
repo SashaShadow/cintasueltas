@@ -1,0 +1,230 @@
+
+.MyNav {
+  display: flex;
+  background-color: rgb(18, 12, 26);
+  flex-direction:row;
+  align-items: center;
+  color: white !important;
+  padding-top: 0.5rem;
+  min-height: 6rem;
+}
+
+.MyNav p {
+  font-size:larger;
+}
+
+.HomeBut:hover {
+ font-weight: bold;
+ color: aqua; 
+ text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px rgba(216, 148, 184, 0.394),
+      0 0 82px #0fa,
+      0 0 92px #0fa,
+      0 0 102px #0fa,
+      0 0 151px #0fa;
+  transform: scale(1.1);
+}
+
+.HomeButAdm:hover {
+ font-weight: bold;
+ color: rgb(215, 105, 195);
+}
+
+.Username {
+  cursor: pointer;
+}
+
+.Username:hover {
+  color: blueviolet;
+}
+
+.LogoNavBar {
+  height: 60px; /* o 70px si lo querés más grande */
+  width: auto;
+  margin-left: 1rem;
+  cursor: pointer;
+  flex-shrink: 0; /* evita que se achique si falta espacio */
+}
+
+.SeccionPersonas {
+  display: flex;
+  gap: 2rem;
+  margin-left: 2rem;
+}
+
+.SeccionAdm {
+  display: flex;
+  gap: 2rem;
+  margin-left: auto; 
+  margin-right: 1rem;
+}
+
+
+/* responasffffffffffffffffffffffffffffff */
+
+
+/* --- ESTILOS ORIGINALES (sin cambios) --- */
+.MyNav {
+  display: flex;
+  background-color: rgb(18, 12, 26);
+  flex-direction: row;
+  align-items: center;
+  color: white !important;
+  padding-top: 0.5rem;
+  min-height: 6rem;
+}
+
+.MyNav p {
+  font-size: larger;
+}
+
+.HomeBut:hover {
+  font-weight: bold;
+  color: aqua;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px rgba(216, 148, 184, 0.394),
+    0 0 82px #0fa,
+    0 0 92px #0fa,
+    0 0 102px #0fa,
+    0 0 151px #0fa;
+  transform: scale(1.1);
+}
+
+.HomeButAdm:hover {
+  font-weight: bold;
+  color: rgb(215, 105, 195);
+}
+
+.Username {
+  cursor: pointer;
+}
+
+.Username:hover {
+  color: blueviolet;
+}
+
+/* .LogoNavBar {
+  height: 60px;
+  margin-left: 1rem;
+  cursor: pointer;
+} */
+
+.SeccionPersonas {
+  display: flex;
+  gap: 2rem;
+  margin-left: 2rem;
+}
+
+.SeccionAdm {
+  display: flex;
+  gap: 2rem;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+/* --- HAMBURGER y SIDEBAR para MOBILE --- */
+.Hamburger {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  margin-left: auto;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.Sidebar {
+  display: none;
+}
+
+.SidebarOverlay {
+  display: none;
+}
+
+/* Solo en pantallas pequeñas (max 768px) */
+@media (max-width: 768px) {
+  .SeccionPersonas,
+  .SeccionAdm {
+    display: none;
+  }
+
+  /* .LogoNavBar {
+    height: 60px; 
+  } */
+
+  .Hamburger {
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    display: unset;
+  }
+
+  .Sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #1a1a1a;
+    color: white;
+    padding-top: 2rem;
+    transition: left 0.3s ease;
+    z-index: 20;
+  }
+
+  .Sidebar.open {
+    left: 0;
+  }
+
+  .SidebarHeader {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1rem;
+  }
+
+  .CloseBtn {
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .SidebarContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  .SidebarLink {
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+  }
+
+  .SidebarLink:hover {
+    color: aqua;
+  }
+
+  .SidebarOverlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 15;
+  }
+}
+
+.LogoSideBar {
+  max-width: 40%;
+  max-height: 40%;
+  cursor: pointer;
+  margin: 0 auto;
+}

@@ -1,0 +1,203 @@
+.ejFech {
+    color: white;
+}
+
+.ContFechaDetalle {
+    display: grid;
+    grid-template-columns: 1.5fr 0.5fr;
+    gap: 1.5rem;
+    max-width: 100%;
+    align-items: start;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.ImagenDetalle {
+    max-height: 25rem;
+}
+
+.InfoFecha {
+    background-color: rgb(25, 40, 42);
+    padding: 1rem;
+    min-width: 0; /* 💡 esencial en grids para permitir que el contenido se reduzca */
+    overflow-wrap: break-word;
+}
+
+.equal-cols th,
+.equal-cols td {
+  width: 25%;          /* 100% / 4 columnas */
+  text-align: center;  /* Opcional: centrar contenido */
+}
+
+.DetallesFechaDesc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-weight: bolder;
+    gap: 1rem;
+    overflow-wrap: break-word;  /* rompe palabras largas */
+    word-break: break-word;     /* soporte adicional */
+    min-width: 0;               /* clave si está dentro de grid */
+    max-width: 100%;
+    text-align: left;
+}
+
+.DetallesFechaDesc p {
+    font-size: 110%;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.DetallesFechaDesc p:first-child {
+  grid-column: span 2; /* Hace que la descripción use el ancho completo */
+}
+
+.EditarFechaIc {
+    scale: 1.2;
+    cursor: pointer;
+}
+
+.EditarFechaIc:hover {
+    color: blueviolet;
+}
+
+
+
+@media (max-width: 1024px) {
+  .ContFechaDetalle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .imgfecha {
+    order: -1; /* 🧭 Esto mueve la imagen arriba */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .ImagenDetalle {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .InfoFecha {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .table.equal-cols thead {
+    display: none;
+  }
+
+  .table.equal-cols tbody, 
+  .table.equal-cols tr, 
+  .table.equal-cols td, 
+  .table.equal-cols th {
+    display: block;
+    width: 100%;
+  }
+
+  .table.equal-cols tr {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #1e1e1e;
+  }
+
+  .table.equal-cols td, 
+  .table.equal-cols th {
+    text-align: left;
+    padding: 0.5rem 0;
+    position: relative;
+  }
+
+  .table.equal-cols td::before, 
+  .table.equal-cols th::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    color: #aaa;
+    margin-bottom: 0.2rem;
+    font-size: 0.85rem;
+  }
+
+  .table.equal-cols td:last-child {
+    border-bottom: none;
+  }
+
+  .EditarFechaIc {
+    float: right;
+    cursor: pointer;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .DetallesFechaDesc {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: 1fr;
+  }
+
+  .equal-cols {
+    width: 100%;
+    display: block;
+  }
+
+  .equal-cols thead {
+    display: none;
+  }
+
+  .equal-cols tbody,
+  .equal-cols tr {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .equal-cols td,
+  .equal-cols th {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #444;
+    font-size: 1rem;
+  }
+
+  .equal-cols td:before,
+  .equal-cols th:before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 0.5rem;
+    color: #bbb;
+  }
+
+  .equal-cols td:last-child {
+    border-bottom: none;
+  }
+
+  .ContFechaDetalle {
+    padding: 1rem;
+  }
+
+  .InfoFecha {
+    width: 100%;
+  }
+
+  .imgfecha {
+    margin-bottom: 1rem;
+  }
+}

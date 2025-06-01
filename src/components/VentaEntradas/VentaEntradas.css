@@ -1,0 +1,78 @@
+.ejVta {
+    color: aliceblue;
+}
+
+.ContEntradasVendidas {
+    display: grid;
+    justify-content: left;
+    align-items: center;
+}
+
+/* Pantallas medianas (tablets) */
+@media (max-width: 1024px) {
+  .ContFechas {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .FechaIndCont img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ContEntradasVendidas {
+    padding: 1rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+/* Pantallas chicas (móviles) */
+@media (max-width: 600px) {
+  .ContFechas {
+    grid-template-columns: 1fr;
+  }
+
+  .FechaIndCont {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .FechaIndCont img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ContEntradasVendidas {
+    padding: 0.5rem;
+  }
+
+  table {
+    font-size: 0.8rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .table thead {
+    display: none; /* opcional para estilo mobile-friendly */
+  }
+
+  .table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .table td,
+  .table th {
+    display: block;
+    text-align: left;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}

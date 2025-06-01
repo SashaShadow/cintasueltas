@@ -1,0 +1,36 @@
+.ej {
+    color: unset;
+}
+
+.FormFecha {
+    display: flex;
+    background-color: rgb(21, 33, 33);
+    font-weight: bolder;
+    max-width: 1200px;  /* Puedes aumentar según lo necesites */
+    width: 100%;
+    margin: 0 auto;    /* Centrar horizontalmente */
+    padding: 2rem;
+    border-radius: 8px; /* opcional */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-color: aqua;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.FormFecha {
+  font-size: 1.25rem; /* Agranda texto de todo el form */
+}
+
+.FormFecha .form-control {
+  font-size: 1.2rem;
+  padding: 0.75rem 1rem;
+}
+
+.FormFecha .form-label {
+  font-size: 1.1rem;
+}
+
+.FormFecha button {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.25rem;
+}
