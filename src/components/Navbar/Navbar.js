@@ -51,7 +51,6 @@ const Navbar = () => {
         </div>
         <div className="SidebarContent">
           <NavLink to={`/home`} onClick={() => setSidebarOpen(false)}><p className='SidebarLink'>Home</p></NavLink>
-          <NavLink to={`/contacto`} onClick={() => setSidebarOpen(false)}><p className='SidebarLink'>Contacto</p></NavLink>
 
           {user ? (
             <>
