@@ -176,6 +176,7 @@
     padding-top: 2rem;
     transition: left 0.3s ease;
     z-index: 20;
+    word-break: break-word; 
   }
 
   .Sidebar.open {
