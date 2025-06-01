@@ -84,7 +84,7 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
             }
 
             if (fechaEditar) {
-                const editarfecha = await axios.put(`${backendEnd}fechas/${fechaEditar._id}/`, fechaCopy, {headers: headers})
+                const editarfecha = await axios.put(`${backendEnd}fechas/${fechaEditar._id}`, fechaCopy, {headers: headers})
                 if (editarfecha.data.status_code !== 200) throw new Error("Error al editar la fecha")
             } else {
                 const crearfecha = await axios.post(`${backendEnd}fechas/`, fechaCopy, {headers: headers})
