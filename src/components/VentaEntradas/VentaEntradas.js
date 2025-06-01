@@ -43,7 +43,7 @@ const VentaEntradas = () => {
         try {
             let id_fecha = fecha._id
             setLoader(true)
-            const getTickets = await axios.get(`${backendEnd}tickets/byfecha/${id_fecha}/`)
+            const getTickets = await axios.get(`${backendEnd}tickets/byfecha/${id_fecha}`)
 
             if (getTickets.data.status_code !== 200) {
                 setTickets([])
