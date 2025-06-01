@@ -23,7 +23,7 @@ const Login = () => {
                 username, password
             }
 
-            const loginAccion = await axios.post(`${backendEnd}admin/login/`, credenciales)
+            const loginAccion = await axios.post(`${backendEnd}admin/login`, credenciales)
 
             if (loginAccion.data.error) throw new Error(loginAccion.data.error)
 
