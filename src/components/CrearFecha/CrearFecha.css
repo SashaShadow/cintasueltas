@@ -8,7 +8,7 @@
     font-weight: bolder;
     max-width: 1200px;  /* Puedes aumentar según lo necesites */
     width: 100%;
-    margin: 0 auto;    /* Centrar horizontalmente */
+    margin: 0 auto 3rem;    /* Centrar horizontalmente */
     padding: 2rem;
     border-radius: 8px; /* opcional */
     box-shadow: 0 0 10px rgba(0,0,0,0.1);

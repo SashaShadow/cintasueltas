@@ -12,6 +12,11 @@ const Home = () => {
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate();
 
+    const parseFecha = (fechaStr) => {
+        const [dia, mes, anio] = fechaStr.split('/').map(Number);
+        return new Date(anio, mes - 1, dia); // El mes es 0-indexado
+    }
+
     useEffect(() => {
         const apiCalls = async () => {
             try {
@@ -40,7 +45,7 @@ const Home = () => {
                 </>}
                 {fechas && fechas.length > 0 &&
                 <div className='ContFechas'>
-                    {fechas.map((fecha, i) => {
+                    {fechas.sort((a, b) => parseFecha(b.fecha) - parseFecha(a.fecha)).map((fecha, i) => {
                         return ( 
                             <div key={i} className='FechaIndCont' onClick={() => navigate(`/fecha/${fecha["_id"]}`)}>
                                 <img className='ImgFecha' src={`${fecha.imagen_url}`} alt={`${fecha.nombre_evento}}`}/>
