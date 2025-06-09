@@ -43,8 +43,9 @@ body {
 }
 
 .FechaIndCont img {
-    max-width: 350px;
-    max-height: 450px;
+    max-width: 100%; /* La imagen se ajusta al contenedor */
+    max-height: 100%; /* Evita que la imagen se desborde */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
     margin-top: 0.4rem;
 }
 
