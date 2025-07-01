@@ -18,3 +18,7 @@ html, body, #root {
   flex: 1; /* esto hace que el contenido crezca y empuje el footer hacia abajo */
   overflow: auto;
 }
+
+.form-control {
+  color: white !important;
+}
