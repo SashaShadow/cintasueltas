@@ -40,7 +40,87 @@ body {
     cursor: pointer;
     gap: 0.2rem;
     padding: 1rem;
+    animation: colorful 4s linear infinite;
 }
+
+:root {
+  --blue: #2196F3;
+  --violet: #9C27B0;
+  --red: #c61717;
+  --yellow: #ff3bc1;
+  --green: #641e43;
+}
+
+
+@keyframes colorful {
+  0% {
+    box-shadow:
+      2px 0 0 var(--blue),
+      -2px 0 0 var(--blue),
+      0 2px 0 var(--blue),
+      0 -2px 0 var(--blue),
+      1px 1px 0 var(--blue),
+      -1px -1px 0 var(--blue),
+      1px -1px 0 var(--blue),
+      -1px 1px 0 var(--blue);
+  }
+  20% {
+    box-shadow:
+      2px 0 0 var(--violet),
+      -2px 0 0 var(--violet),
+      0 2px 0 var(--violet),
+      0 -2px 0 var(--violet),
+      1px 1px 0 var(--violet),
+      -1px -1px 0 var(--violet),
+      1px -1px 0 var(--violet),
+      -1px 1px 0 var(--violet);
+  }
+  40% {
+    box-shadow:
+      2px 0 0 var(--red),
+      -2px 0 0 var(--red),
+      0 2px 0 var(--red),
+      0 -2px 0 var(--red),
+      1px 1px 0 var(--red),
+      -1px -1px 0 var(--red),
+      1px -1px 0 var(--red),
+      -1px 1px 0 var(--red);
+  }
+  60% {
+    box-shadow:
+      2px 0 0 var(--yellow),
+      -2px 0 0 var(--yellow),
+      0 2px 0 var(--yellow),
+      0 -2px 0 var(--yellow),
+      1px 1px 0 var(--yellow),
+      -1px -1px 0 var(--yellow),
+      1px -1px 0 var(--yellow),
+      -1px 1px 0 var(--yellow);
+  }
+  80% {
+    box-shadow:
+      2px 0 0 var(--green),
+      -2px 0 0 var(--green),
+      0 2px 0 var(--green),
+      0 -2px 0 var(--green),
+      1px 1px 0 var(--green),
+      -1px -1px 0 var(--green),
+      1px -1px 0 var(--green),
+      -1px 1px 0 var(--green);
+  }
+  100% {
+    box-shadow:
+      2px 0 0 var(--blue),
+      -2px 0 0 var(--blue),
+      0 2px 0 var(--blue),
+      0 -2px 0 var(--blue),
+      1px 1px 0 var(--blue),
+      -1px -1px 0 var(--blue),
+      1px -1px 0 var(--blue),
+      -1px 1px 0 var(--blue);
+  }
+}
+
 
 .FechaIndCont img {
     max-width: 100%; /* La imagen se ajusta al contenedor */

@@ -5,6 +5,7 @@ import { backendEnd } from '../../utils/urls.js';
 import { IoLocationSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import Context from '../../context/SessionContext.js';
+import { crearExceldeTabla } from "../../utils/crearExcelTabla.js"
 
 const VentaEntradas = () => {
 
@@ -101,8 +102,11 @@ const VentaEntradas = () => {
                 <div className='ContEntradasVendidas'>
                     <button className='btn' onClick={() => volverListado()}>Volver a listado de fechas</button>
                     <h3>Entradas vendidas para el {fecha.nombre_evento}</h3>
-                    <h4>Total de entradas vendidas: {tickets.reduce((sum, ticket) => sum + ticket.cantidad, 0)}</h4>
-                    <table className="table table-dark">
+                    <div>
+                        <h4>Total de entradas vendidas: {tickets.reduce((sum, ticket) => sum + ticket.cantidad, 0)}</h4>
+                        <button className="btn btn-primary BotonCentrado" onClick={() => crearExceldeTabla("TablaVentas")}>Descargar en excel</button>
+                    </div>
+                    <table className="table table-dark" id="TablaVentas">
                     <thead>
                         <tr>
                             <th scope="col">Nombre y apellido</th>
