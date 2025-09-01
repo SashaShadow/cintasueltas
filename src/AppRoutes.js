@@ -10,6 +10,7 @@ import VentaEntradas from './components/VentaEntradas/VentaEntradas.js';
 import Error from './components/Error/Error.js';
 import Exito from './components/Exito/Exito.js';
 import Footer from "./components/Footer/Footer.js"; 
+import Videos from './components/Videos/Videos.js';
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const AppRoutes = () => {
           <Route path='/vtaentradas' element={<VentaEntradas/>} />
           <Route path='/success' element={<Exito/>} />
           <Route path='/error' element={<Error/>} />
+          <Route path='/videos' element={<Videos />} />
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </main>

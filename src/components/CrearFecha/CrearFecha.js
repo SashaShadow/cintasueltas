@@ -34,7 +34,8 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
         "activa": fechaEditar ? fechaEditar.activa : true,
         "descripcion": fechaEditar ? fechaEditar.descripcion : null,
         "fecha": fechaEditar ? dateFormat(fechaEditar.fecha) : null,
-        "hora": fechaEditar ? fechaEditar.hora : null}); 
+        "hora": fechaEditar ? fechaEditar.hora : null,
+        "gorra": fechaEditar ? fechaEditar.gorra : false}); 
 
     const [errorAlert, setErrorAlert] = useState(null)
     const [sePuedeCrear, setSePuedeCrear] = useState(null)
@@ -45,7 +46,7 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
         const fechaKeys = Object.keys(fecha)
 
         const todosLlenos = fechaKeys.every(key => {
-            if (key !== "activa") {
+            if (key !== "activa" && key !== "gorra") {
                 return fecha[key]
             } else {
                 return true
@@ -64,6 +65,8 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
 
     const handleChange = (e) => {
         if (e.target.name === "activa") {
+            setFecha({ ...fecha, [e.target.name]: e.target.value === "true"});
+        } else if (e.target.name === "gorra") {
             setFecha({ ...fecha, [e.target.name]: e.target.value === "true"});
         } else {
             setFecha({ ...fecha, [e.target.name]: e.target.value });
@@ -181,7 +184,7 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
 
                 {/* Tercera fila */}
                 <div className="row mb-3">
-                    <div className={fechaEditar ? "col-md-4" : "col-md-6"}>
+                    <div className={fechaEditar ? "col-md-3" : "col-md-6"}>
                     <label className="form-label">Fecha</label>
                     <input
                         type="date"
@@ -191,7 +194,7 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
                         onChange={handleChange}
                     />
                     </div>
-                    <div className={fechaEditar ? "col-md-4" : "col-md-6"}>
+                    <div className={fechaEditar ? "col-md-3" : "col-md-6"}>
                     <label className="form-label">Hora</label>
                     <input
                         type="time"
@@ -202,9 +205,19 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
                     />
                     </div>
                     {fechaEditar &&
-                    <div className="col-md-4">
+                    <div className="col-md-3">
                         <label className="form-label">Fecha activa</label>
-                        <select className='form-control' onChange={handleChange} name="activa" defaultValue={fecha.activa ? "si" : "no"}>
+                        <select className='form-control' onChange={handleChange} name="activa" value={fecha.activa}>
+                            <option value={true}>Si</option>
+                            <option value={false}>No</option>
+                        </select>
+                    </div>
+                    }
+
+                    {fechaEditar &&
+                    <div className="col-md-3">
+                        <label className="form-label">Fecha a la gorra</label>
+                        <select className='form-control' onChange={handleChange} name="gorra" value={fecha.gorra}>
                             <option value={true}>Si</option>
                             <option value={false}>No</option>
                         </select>

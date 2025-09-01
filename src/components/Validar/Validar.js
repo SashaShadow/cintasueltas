@@ -1,9 +1,8 @@
-import { useState, useEffect, useContext} from 'react'
+import { useState, useEffect } from "react";
 import './Validar.css';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import axios from 'axios';
 import { backendEnd } from "../../utils/urls.js"
-import Context from '../../context/SessionContext.js';
 import { useNavigate } from 'react-router-dom';
 
 const Validar = () => {
@@ -11,14 +10,7 @@ const Validar = () => {
     const [result, setResult] = useState(null);
     const [errorAlert, setErrorAlert] = useState(null)
     const [entradaValida, setEntradaValida] = useState(null)
-    const { user } = useContext(Context);
     const navigate = useNavigate();
-
-    useEffect(() => {
-      if (!user) {
-        navigate("/login")
-      }
-    }, [user])
 
     useEffect(() => {
       const ticketCheck = async () => {

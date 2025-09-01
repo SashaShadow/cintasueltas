@@ -26,6 +26,7 @@ const Fecha = () => {
     const [idFecha, setIdFecha] = useState(pathname.split('/')[pathname.split('/').length - 1])
     const { user, token } = useContext(Context);
     const [fechaEditar, setFechaEditar] = useState(null)
+    const [valorGorra, setValorGorra] = useState(1500)
 
     useEffect(() => {
         const esFechaUrl = pathname.includes('fecha') 
@@ -52,6 +53,17 @@ const Fecha = () => {
     }, [])
 
     useEffect(() => {
+        if (fecha && fecha.gorra && cantidad && valorGorra) {
+            const valorEntrada = fecha.gorra ? valorGorra : fecha.valor
+            const valorNuevo = cantidad * valorEntrada 
+
+            setValorInfo(valorNuevo)
+        } else if (fecha && fecha.gorra && !valorGorra) {
+            setComprar(false)
+        }
+    }, [valorGorra])
+
+    useEffect(() => {
         const dcKeys = Object.keys(datosCompra)
         const todosLlenos = dcKeys.every(key => datosCompra[key])
         setSePuedeComprar(todosLlenos)
@@ -59,7 +71,9 @@ const Fecha = () => {
 
     const cantiChange = canti => {
         setCantidad(`${canti}`)
-        const valorNuevo = canti * fecha.valor
+        const valorEntrada = fecha.gorra ? valorGorra : fecha.valor
+        const valorNuevo = canti * valorEntrada 
+
         setValorInfo(valorNuevo)
         if (!canti) {
            setComprar(false)
@@ -93,6 +107,9 @@ const Fecha = () => {
         }
     };
 
+    const MIN = 1500
+    const MAX = 10000
+
     return (
         <>
             <div className='ContHome'>
@@ -119,7 +136,12 @@ const Fecha = () => {
                             <tbody>
                                 <tr>
                                     <th data-label="Entrada">Entrada general</th>
-                                    <td data-label="Valor">{fecha.valor}</td>
+                                    <td data-label="Valor">
+                                        {fecha.gorra ? 
+                                            <input type="number" min={MIN} max={MAX} defaultValue={valorGorra} onChange={(e) => setValorGorra(Number(e.target.value))}/> :
+                                            <p>{fecha.valor}</p>
+                                        }
+                                    </td>
                                     <td data-label="Cantidad">
                                         <select className='form-control' disabled={!fecha.activa} defaultValue={0} onChange={(e) => cantiChange(Number(e.target.value))}>
                                         {[0, 1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n}</option>)}

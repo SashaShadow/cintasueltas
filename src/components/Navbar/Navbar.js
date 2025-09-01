@@ -24,7 +24,10 @@ const Navbar = () => {
 
         <div className="SeccionPersonas">
           <NavLink to={`/home`}>
-            <p className='HomeBut'>Home</p>
+            <p className='HomeBut'>Fechas</p>
+          </NavLink>
+          <NavLink to={`/videos`}>
+            <p className='Username'>Videos</p>
           </NavLink>
         </div>
 
@@ -50,7 +53,8 @@ const Navbar = () => {
           <span onClick={() => setSidebarOpen(false)} className="CloseBtn">×</span>
         </div>
         <div className="SidebarContent">
-          <NavLink to={`/home`} onClick={() => setSidebarOpen(false)}><p className='SidebarLink'>Home</p></NavLink>
+          <NavLink to={`/home`} onClick={() => setSidebarOpen(false)}><p className='SidebarLink'>Fechas</p></NavLink>
+          <NavLink to={`/videos`} onClick={() => setSidebarOpen(false)}><p className='SidebarLink'>Videos</p></NavLink>
 
           {user ? (
             <>
