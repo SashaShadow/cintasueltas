@@ -11,6 +11,7 @@ const Videos = () => {
     const [videos, setVideos] = useState(null)
     const [loader, setLoader] = useState(false)
     const [limit, setLimit] = useState(9)
+    const [idPlaylist, setIdPlaylist] = useState("PLsCZ7KQMXPZq8nHg_lLj9fChofzwiVTOu")
 
     const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ const Videos = () => {
         setLoader(true)
         const apiCalls = async () => {
             try {
-                const getVideos = await axios.get(`${backendEnd}videos/${limit}`)
+                const getVideos = await axios.get(`${backendEnd}videos/playlist/${idPlaylist}/${limit}`)
                 if (getVideos.data.status_code !== 200) throw new Error("Error al traer datos de los videos")
                 setVideos(getVideos.data.data.items)
             } catch (err) {
@@ -54,7 +55,7 @@ const Videos = () => {
                         return (
                             <div key={i} className="ContVideo">
                                 <iframe 
-                                src={`https://www.youtube.com/embed/${video.id.videoId}`} 
+                                src={`https://www.youtube.com/embed/${video.snippet.resourceId.videoId}`} 
                                 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                                 allowfullscreen>
                                 </iframe>
