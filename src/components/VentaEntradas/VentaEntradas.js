@@ -65,6 +65,21 @@ const VentaEntradas = () => {
         setFecha(null)
     }
 
+    const reenviarMail = async (extref) => {
+        try {
+            setLoader(true)
+            const getReenvio = await axios.get(`${backendEnd}tickets/reenviomail/${extref}`)
+
+            if (getReenvio.data.status_code !== 200) {
+                setErrorAlert("Mail reenviado")
+            } 
+        } catch (err) {
+            setErrorAlert(err.toString()) 
+        } finally {
+            setLoader(false)
+        }
+    }
+
     return (
         <>
             <h2 className='GestorTitle'>Progreso de venta de entradas</h2>
@@ -115,6 +130,7 @@ const VentaEntradas = () => {
                             <th scope="col">Importe abonado</th>
                             <th scope="col">Fecha de compra</th>
                             <th scope="col">Id. de pago</th>
+                            <th scope="col">Reenviar mail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -127,6 +143,7 @@ const VentaEntradas = () => {
                                 <td>{tic.importe_total}</td>
                                 <td>{tic.fecha}</td>
                                 <td>{tic.id_pago}</td>
+                                <td><button disabled={loader} onClick={() => reenviarMail(tic.external_reference)} className="btn">Reenviar</button></td>
                             </tr>
                             )
                         })}
