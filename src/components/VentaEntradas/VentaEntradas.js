@@ -17,11 +17,11 @@ const VentaEntradas = () => {
     const navigate = useNavigate();
     const { user } = useContext(Context);
 
-    useEffect(() => {
-      if (!user) {
-        navigate("/login")
-      }
-    }, [user])
+    // useEffect(() => {
+    //   if (!user) {
+    //     navigate("/login")
+    //   }
+    // }, [user])
 
     useEffect(() => {
         const apiCalls = async () => {
