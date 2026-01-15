@@ -35,6 +35,7 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
         "descripcion": fechaEditar ? fechaEditar.descripcion : null,
         "fecha": fechaEditar ? dateFormat(fechaEditar.fecha) : null,
         "hora": fechaEditar ? fechaEditar.hora : null,
+        "doble": fechaEditar ? fechaEditar.doble : false,
         "gorra": fechaEditar ? fechaEditar.gorra : false}); 
 
     const [errorAlert, setErrorAlert] = useState(null)
@@ -46,7 +47,7 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
         const fechaKeys = Object.keys(fecha)
 
         const todosLlenos = fechaKeys.every(key => {
-            if (key !== "activa" && key !== "gorra") {
+            if (key !== "activa" && key !== "gorra" && key !== "doble") {
                 return fecha[key]
             } else {
                 return true
@@ -67,6 +68,8 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
         if (e.target.name === "activa") {
             setFecha({ ...fecha, [e.target.name]: e.target.value === "true"});
         } else if (e.target.name === "gorra") {
+            setFecha({ ...fecha, [e.target.name]: e.target.value === "true"});
+        } else if (e.target.name === "doble") {
             setFecha({ ...fecha, [e.target.name]: e.target.value === "true"});
         } else {
             setFecha({ ...fecha, [e.target.name]: e.target.value });
@@ -214,10 +217,20 @@ const CrearFecha = ({fechaEditar, setFechaEditar}) => {
                     </div>
                     }
 
-                    {fechaEditar &&
+                    {/* {fechaEditar &&
                     <div className="col-md-3">
                         <label className="form-label">Fecha a la gorra</label>
                         <select className='form-control' onChange={handleChange} name="gorra" value={fecha.gorra}>
+                            <option value={true}>Si</option>
+                            <option value={false}>No</option>
+                        </select>
+                    </div>
+                    } */}
+
+                    {fechaEditar &&
+                    <div className="col-md-3">
+                        <label className="form-label">2X1 habilitado</label>
+                        <select className='form-control' onChange={handleChange} name="doble" value={fecha.doble}>
                             <option value={true}>Si</option>
                             <option value={false}>No</option>
                         </select>
