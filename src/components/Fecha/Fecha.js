@@ -27,6 +27,10 @@ const Fecha = () => {
     const { user, token } = useContext(Context);
     const [fechaEditar, setFechaEditar] = useState(null)
     const [valorGorra, setValorGorra] = useState(1500)
+    const [cantidad2x1, setCantidad2x1] = useState(0)
+    const [valorInfo2x1, setValorInfo2x1] = useState(0)
+    const [comprar2x1, setComprar2x1] = useState(false)
+
 
     useEffect(() => {
         const esFechaUrl = pathname.includes('fecha') 
@@ -81,18 +85,31 @@ const Fecha = () => {
         }
     }
 
+    const cantiChange2x1 = canti => {
+        setCantidad2x1(`${canti}`)
+        const valorEntrada = fecha.gorra ? valorGorra : fecha.valor
+        const valorNuevo = canti / 2 * valorEntrada 
+
+        setValorInfo2x1(valorNuevo)
+        if (!canti) {
+           setComprar(false)
+           setCantidad2x1(null)
+        }
+    }
+
     const handleChange = (e) => {
         setDatosCompra({ ...datosCompra, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e, doble, tipo) => {
         e.preventDefault();
         setLoader(true)
-
+        console.log(fecha)
         let datosCompraCopy = structuredClone(datosCompra)
         datosCompraCopy.fecha =  new Date().toLocaleDateString()
         datosCompraCopy.id_fecha = idFecha
-        datosCompraCopy.cantidad = Number(cantidad)
+        datosCompraCopy.cantidad = tipo === "normal" ? Number(cantidad) : Number(cantidad2x1)
+        datosCompraCopy.doble = doble
 
         try {
             const crearTicket = await axios.post(`${backendEnd}tickets/`, datosCompraCopy)
@@ -118,6 +135,8 @@ const Fecha = () => {
                 <>
                 <h2 className='blanco'>Error: {errorAlert}</h2>
                 </>}
+
+                {/* seguir aca agregar parte de 2x1 */}
                 {fecha && !fechaEditar &&
                 <div className='ContFechaDetalle'>
                     <div className='InfoFecha'>
@@ -149,17 +168,79 @@ const Fecha = () => {
                                     </td>
                                     <td data-label="Total">${valorInfo}</td>
                                     <td data-label="">
-                                        {fecha.activa ? <button className='btn' onClick={() => setComprar(true)} disabled={!cantidad}>Siguiente</button>
+                                        {fecha.activa ? <button className='btn' onClick={() => {setComprar(true); setComprar2x1(false)}} disabled={!cantidad}>Siguiente</button>
                                         : <p>Compra deshabilitada</p>}
                                     </td>
                                     {user && <td data-label="Editar fecha"><MdEdit onClick={() => setFechaEditar(fecha)} className='EditarFechaIc' /></td>}
                                 </tr>
                             </tbody>
                         </table>
-                        {comprar && fecha.activa &&
+
+                        {fecha.doble && 
+                        <table className="table table-dark equal-cols">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tipo de ticket</th>
+                                    <th scope="col">Valor</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th data-label="Entrada">2X1</th>
+                                    <td data-label="Valor">
+                                        <p>{fecha.valor}</p>
+                                    </td>
+                                    <td data-label="Cantidad">
+                                        <select className='form-control' disabled={!fecha.activa} defaultValue={0} onChange={(e) => cantiChange2x1(Number(e.target.value))}>
+                                        {[0, 2].map(n => <option key={n} value={n}>{n}</option>)}
+                                        </select>
+                                    </td>
+                                    <td data-label="Total">${valorInfo2x1}</td>
+                                    <td data-label="">
+                                        {fecha.activa ? <button className='btn' onClick={() => {setComprar2x1(true); setComprar(false)}} disabled={!cantidad2x1}>Siguiente</button>
+                                        : <p>Compra deshabilitada</p>}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        }
+
+                        {comprar && !comprar2x1 && fecha.activa &&
                         <>
                             <p>Datos requeridos pues te enviaremos tus tickets al email.</p>
-                            <form className="container-fluid mt-4" onSubmit={handleSubmit}>
+                            <form className="container-fluid mt-4" onSubmit={e => handleSubmit(e, false, "normal")}>
+                                <div className="row mb-3">
+                                    <div className="col-md-4">
+                                    <label className="form-label">Nombre y apellido</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="nombre"
+                                        onChange={handleChange}
+                                    />
+                                    </div>
+                                    <div className="col-md-4">
+                                    <label className="form-label">Email</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        name="email"
+                                        onChange={handleChange}
+                                    />
+                                    </div>
+                                </div>
+                                <button disabled={!sePuedecomprar || loader || !fecha.activa} type="submit" className="btn">Finalizar compra</button>
+                            </form>
+                        </>    
+                        }
+
+                        {comprar2x1 && !comprar && fecha.activa &&
+                        <>
+                            <p>Datos requeridos pues te enviaremos tus tickets 2x1 al email.</p>
+                            <form className="container-fluid mt-4" onSubmit={e => handleSubmit(e, true, "2x1")}>
                                 <div className="row mb-3">
                                     <div className="col-md-4">
                                     <label className="form-label">Nombre y apellido</label>
