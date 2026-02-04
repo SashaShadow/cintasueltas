@@ -88,10 +88,10 @@ const BuscadorJP = () => {
                     </div>
 
                     <div className="BuscadoresJP">
-                        <input onChange={(e) => setFiltros({...filtros, palabra: e.target.value})} className="form-control" placeholder="Buscar por palabra (ingles)"/>
-                        <input onChange={(e) => setFiltros({...filtros, kanji: e.target.value})} className="form-control" placeholder="Buscar por kanji"/>
-                        <input onChange={(e) => setFiltros({...filtros, romaji: e.target.value})} className="form-control" placeholder="Buscar por romaji"/>
-                        <input onChange={(e) => setFiltros({...filtros, furigana: e.target.value})} className="form-control" placeholder="Buscar por furigana"/>
+                        <input onChange={(e) => setFiltros({...filtros, palabra: e.target.value.toLowerCase()})} className="form-control" placeholder="Buscar por palabra (ingles)"/>
+                        <input onChange={(e) => setFiltros({...filtros, kanji: e.target.value.toLowerCase()})} className="form-control" placeholder="Buscar por kanji"/>
+                        <input onChange={(e) => setFiltros({...filtros, romaji: e.target.value.toLowerCase()})} className="form-control" placeholder="Buscar por romaji"/>
+                        <input onChange={(e) => setFiltros({...filtros, furigana: e.target.value.toLowerCase()})} className="form-control" placeholder="Buscar por furigana"/>
                     </div>
                 </div>
                 }
