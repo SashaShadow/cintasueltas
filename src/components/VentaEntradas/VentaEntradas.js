@@ -15,7 +15,7 @@ const VentaEntradas = () => {
     const [tickets, setTickets] = useState(null)
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate();
-    const { user } = useContext(Context);
+    const { user, token, setToken, setUser, validateToken } = useContext(Context);
 
     // useEffect(() => {
     //   if (!user) {
@@ -23,13 +23,24 @@ const VentaEntradas = () => {
     //   }
     // }, [user])
 
+    // useEffect(() => {
+    //     if (token) {
+    //         const isValidToken = validateToken();
+    //         if (!isValidToken) {
+    //             setToken(null);
+    //             setUser(null);
+    //             navigate("/login")
+    //         }
+    //     }
+    // }, [token])
+
     useEffect(() => {
         const apiCalls = async () => {
             try {
                 setLoader(true)
                 const getFechas = await axios.get(`${backendEnd}fechas/`)
                 if (getFechas.data.status_code !== 200) throw new Error("Error al traer datos de las fechas")
-                
+
                 setFechas(getFechas.data.data)
             } catch (err) {
                 setErrorAlert(err.toString())
@@ -54,7 +65,7 @@ const VentaEntradas = () => {
                 setFecha(fecha)
             }
         } catch (err) {
-            setErrorAlert(err.toString()) 
+            setErrorAlert(err.toString())
         } finally {
             setLoader(false)
         }
@@ -72,9 +83,9 @@ const VentaEntradas = () => {
 
             if (getReenvio.data.status_code !== 200) {
                 setErrorAlert("Mail reenviado")
-            } 
+            }
         } catch (err) {
-            setErrorAlert(err.toString()) 
+            setErrorAlert(err.toString())
         } finally {
             setLoader(false)
         }
@@ -83,77 +94,77 @@ const VentaEntradas = () => {
     return (
         <>
             <h2 className='GestorTitle'>Progreso de venta de entradas</h2>
-            
+
             <div className='ContHome'>
                 {loader && <h2 className='Loader'>Cargando...</h2>}
-                {errorAlert && 
-                <>
-                <h2 className='blanco'>Error: {errorAlert}</h2>
-                </>}
+                {errorAlert &&
+                    <>
+                        <h2 className='blanco'>Error: {errorAlert}</h2>
+                    </>}
                 {fechas && fechas.length > 0 && !tickets &&
-                <div className='ContFechas'>
-                    {fechas.map((fech, i) => {
-                        return ( 
-                            <div key={i} className='FechaIndCont' onClick={() => buscarTicketsVendidos(fech)}>
-                                <img className='ImgFecha' src={`${fech.imagen_url}`} alt={`${fech.nombre_evento}}`}/>
-                                <div className='UbiFecha'>
-                                    <IoLocationSharp className='iconCustom'/>
-                                    <p>{fech.nombre_lugar}</p>
-                                </div>
-                                <p className='NombreFecha'>{fech.nombre_evento}</p>
-                                <div className='FechaHora'>
-                                    <p>{fech.fecha}</p>
-                                    <p>|</p>
-                                    <p>{fech.hora}HS</p>
-                                </div>
+                    <div className='ContFechas'>
+                        {fechas.map((fech, i) => {
+                            return (
+                                <div key={i} className='FechaIndCont' onClick={() => buscarTicketsVendidos(fech)}>
+                                    <img className='ImgFecha' src={`${fech.imagen_url}`} alt={`${fech.nombre_evento}}`} />
+                                    <div className='UbiFecha'>
+                                        <IoLocationSharp className='iconCustom' />
+                                        <p>{fech.nombre_lugar}</p>
+                                    </div>
+                                    <p className='NombreFecha'>{fech.nombre_evento}</p>
+                                    <div className='FechaHora'>
+                                        <p>{fech.fecha}</p>
+                                        <p>|</p>
+                                        <p>{fech.hora}HS</p>
+                                    </div>
 
-                            </div>
-                        )
-                    })}
-                </div>
+                                </div>
+                            )
+                        })}
+                    </div>
                 }
 
                 {tickets && fecha &&
-                <div className='ContEntradasVendidas'>
-                    <button className='btn' onClick={() => volverListado()}>Volver a listado de fechas</button>
-                    <h3>Entradas vendidas para el {fecha.nombre_evento}</h3>
-                    <div>
-                        <h4>Total de entradas vendidas: {tickets.reduce((sum, ticket) => sum + ticket.cantidad, 0)}</h4>
-                        <button className="btn btn-primary BotonCentrado" onClick={() => crearExceldeTabla("TablaVentas")}>Descargar en excel</button>
+                    <div className='ContEntradasVendidas'>
+                        <button className='btn' onClick={() => volverListado()}>Volver a listado de fechas</button>
+                        <h3>Entradas vendidas para el {fecha.nombre_evento}</h3>
+                        <div>
+                            <h4>Total de entradas vendidas: {tickets.reduce((sum, ticket) => sum + ticket.cantidad, 0)}</h4>
+                            <button className="btn btn-primary BotonCentrado" onClick={() => crearExceldeTabla("TablaVentas")}>Descargar en excel</button>
+                        </div>
+                        <table className="table table-dark" id="TablaVentas">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombre y apellido</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Cantidad de entradas</th>
+                                    <th scope="col">Importe abonado</th>
+                                    <th scope="col">Fecha de compra</th>
+                                    <th scope="col">Id. de pago</th>
+                                    <th scope="col">Reenviar mail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tickets.map((tic, i) => {
+                                    return (
+                                        <tr key={i}>
+                                            <th scope="row">{tic.nombre}</th>
+                                            <td>{tic.email}</td>
+                                            <td>{tic.cantidad}</td>
+                                            <td>{tic.importe_total}</td>
+                                            <td>{tic.fecha}</td>
+                                            <td>{tic.id_pago}</td>
+                                            <td><button disabled={loader} onClick={() => reenviarMail(tic.external_reference)} className="btn">Reenviar</button></td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>
                     </div>
-                    <table className="table table-dark" id="TablaVentas">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nombre y apellido</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Cantidad de entradas</th>
-                            <th scope="col">Importe abonado</th>
-                            <th scope="col">Fecha de compra</th>
-                            <th scope="col">Id. de pago</th>
-                            <th scope="col">Reenviar mail</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tickets.map((tic, i) => {
-                            return (
-                            <tr key={i}>
-                                <th scope="row">{tic.nombre}</th>
-                                <td>{tic.email}</td>
-                                <td>{tic.cantidad}</td>
-                                <td>{tic.importe_total}</td>
-                                <td>{tic.fecha}</td>
-                                <td>{tic.id_pago}</td>
-                                <td><button disabled={loader} onClick={() => reenviarMail(tic.external_reference)} className="btn">Reenviar</button></td>
-                            </tr>
-                            )
-                        })}
-                    </tbody>
-                    </table>
-                </div>
                 }
             </div>
         </>
-    )   
+    )
 }
 
 export default VentaEntradas;

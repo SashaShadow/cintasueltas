@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import { backendEnd } from "../../utils/urls.js"
-import Context from '../../context/SessionContext.js'; 
+import Context from '../../context/SessionContext.js';
 import axios from 'axios';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +28,7 @@ const Login = () => {
             if (loginAccion.data.error) throw new Error(loginAccion.data.error)
 
             setToken(loginAccion.data.access_token)
-            setUser({username: username})
+            setUser({ username: username })
 
             navigate('/home');
 
@@ -41,39 +41,39 @@ const Login = () => {
     return (
         <>
             <h1 className='GestorTitle'>Login</h1>
-            {errorAlert && 
-            <>
-              <h2 className='blanco'>{errorAlert}</h2>
-            </>}
+            {errorAlert &&
+                <>
+                    <h2 className='blanco'>{errorAlert}</h2>
+                </>}
 
-            {loader && 
-            <>
-                <h3 className='Loading'>Cargando...</h3>
-                <span class="loader"></span>
-            </>
+            {loader &&
+                <>
+                    <h3 className='Loading'>Cargando...</h3>
+                    <span class="loader"></span>
+                </>
             }
             <div className='ContLogin'>
                 <div className="back">
                     <div className="div-center">
                         <div className="content">
                             <form onSubmit={onSubmit}>
-                            <div className="form-group divin">
-                                <label htmlFor="username">Usuario</label>
-                                <input type="text" className="form-control" name='username' id="username" placeholder="usuario"/>
-                            </div>
-                            <div className="form-group divin">
-                                <label htmlFor="password">Password</label>
-                                <input type="password" className="form-control" name='password' id="password" placeholder="password"/>
-                            </div>
-                            <button type="submit" className="btn btn-primary">Login</button>
-                            <hr/>
+                                <div className="form-group divin">
+                                    <label htmlFor="username">Usuario</label>
+                                    <input type="text" className="form-control" name='username' id="username" placeholder="usuario" />
+                                </div>
+                                <div className="form-group divin">
+                                    <label htmlFor="password">Password</label>
+                                    <input type="password" className="form-control" name='password' id="password" placeholder="password" />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Login</button>
+                                <hr />
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </>    
-    )   
+        </>
+    )
 }
 
 export default Login;

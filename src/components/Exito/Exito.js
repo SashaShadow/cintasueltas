@@ -66,7 +66,7 @@ const Exito = () => {
 
                 {ticket && 
                 <>
-                    <h3 className='blanco'>Tus tickets para el {ticket.fecha.nombre_evento}.</h3>
+                    <h3 className='blanco'>Tus tickets para {ticket.fecha.nombre_evento}.</h3>
                     <p>Tambien te mandamos esta información al email.</p>
                     <div className='EntradaValida' ref={divRef}>
                         <img src="/LOGO.PNG" className='LogoEntrada' alt="logo"/>   
