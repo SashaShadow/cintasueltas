@@ -9,7 +9,7 @@ import Fecha from './components/Fecha/Fecha.js';
 import VentaEntradas from './components/VentaEntradas/VentaEntradas.js';
 import Error from './components/Error/Error.js';
 import Exito from './components/Exito/Exito.js';
-import Footer from "./components/Footer/Footer.js"; 
+import Footer from "./components/Footer/Footer.js";
 import Videos from './components/Videos/Videos.js';
 import { lazy, Suspense } from 'react';
 
@@ -30,11 +30,13 @@ const AppRoutes = () => {
             <Route path='/home' element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/validar' element={<Validar />} />
-            <Route path='/crearfecha' element={<CrearFecha fechaEditar={null} setFechaEditar={null}/>} />
-            <Route path='/fecha/:id' element={<Fecha/>} />
-            <Route path='/vtaentradas' element={<VentaEntradas/>} />
-            <Route path='/success' element={<Exito/>} />
-            <Route path='/error' element={<Error/>} />
+            <Route path='/crearfecha' element={<CrearFecha fechaEditar={null} setFechaEditar={null} />} />
+            <Route path='/fecha/:id' element={<Fecha />} />
+            <Route path='/vtaentradas' element={<VentaEntradas />} />
+            <Route path='/vtaentradas/:id' element={<VentaEntradas />} />
+
+            <Route path='/success' element={<Exito />} />
+            <Route path='/error' element={<Error />} />
             <Route path='/videos' element={<Videos />} />
             <Route path='/diccjp' element={<BuscadorJP />} />
             <Route path='*' element={<h1>Not Found</h1>} />

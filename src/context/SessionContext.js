@@ -1,16 +1,36 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useScreenMsgService } from '../utils/screenMsg.js'
 import axios from "axios";
 import useLocalStorage from "../services/LocalStorState/LocalStorState.js";
 import { backendEnd } from "../utils/urls.js"
+import { useNavigate } from "react-router-dom";
 
 const Context = createContext();
 
 export const SessionContext = ({ children }) => {
 
   const [token, setToken] = useLocalStorage(null, "token");
-  const [user, setUser] = useLocalStorage(null, "user");;
+  const [user, setUser] = useLocalStorage(null, "user");
   const { setScreenMsg } = useScreenMsgService()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+          setToken(null);
+          setUser(null);
+          navigate("/login");
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      axios.interceptors.response.eject(interceptor);
+    };
+  }, [setToken, setUser, navigate]);
 
   const getAxiosInstance = (baseUrl) => {
     return axios.create({

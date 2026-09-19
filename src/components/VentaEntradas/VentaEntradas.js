@@ -6,8 +6,11 @@ import { IoLocationSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import Context from '../../context/SessionContext.js';
 import { crearExceldeTabla } from "../../utils/crearExcelTabla.js"
+import { useLocation } from 'react-router-dom';
 
 const VentaEntradas = () => {
+    const location = useLocation();
+    const { pathname } = location;
 
     const [errorAlert, setErrorAlert] = useState(null)
     const [fechas, setFechas] = useState(null)
@@ -16,40 +19,8 @@ const VentaEntradas = () => {
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate();
     const { user, token, setToken, setUser, validateToken } = useContext(Context);
+    const [fechaUrl, setFechaUrl] = useState(null)
 
-    // useEffect(() => {
-    //   if (!user) {
-    //     navigate("/login")
-    //   }
-    // }, [user])
-
-    // useEffect(() => {
-    //     if (token) {
-    //         const isValidToken = validateToken();
-    //         if (!isValidToken) {
-    //             setToken(null);
-    //             setUser(null);
-    //             navigate("/login")
-    //         }
-    //     }
-    // }, [token])
-
-    useEffect(() => {
-        const apiCalls = async () => {
-            try {
-                setLoader(true)
-                const getFechas = await axios.get(`${backendEnd}fechas/`)
-                if (getFechas.data.status_code !== 200) throw new Error("Error al traer datos de las fechas")
-
-                setFechas(getFechas.data.data)
-            } catch (err) {
-                setErrorAlert(err.toString())
-            }
-            setLoader(false)
-
-        }
-        apiCalls()
-    }, [])
 
     const buscarTicketsVendidos = async (fecha) => {
         try {
@@ -71,9 +42,76 @@ const VentaEntradas = () => {
         }
     }
 
+    useEffect(() => {
+        if (!user && !fechaUrl) {
+            let urlDividido = pathname.split('/')
+            let fechaFound = true
+
+            if (urlDividido.length === 3) {
+                const apiCalls = async () => {
+                    try {
+                        setLoader(true)
+                        const getFecha = await axios.get(`${backendEnd}fechas/bynewid/${urlDividido[urlDividido.length - 1]}`)
+                        if (getFecha.data.status_code !== 200) throw new Error("Error al traer datos de la fecha")
+                        console.log(getFecha.data.data)
+                        setFechaUrl(getFecha.data.data)
+                        setFecha(getFecha.data.data)
+                        buscarTicketsVendidos(getFecha.data.data)
+                    } catch (err) {
+                        setErrorAlert(err.toString())
+                        fechaFound = false
+                    }
+                    setLoader(false)
+
+                }
+                apiCalls()
+            }
+
+            if (!fechaFound) {
+                navigate("/login")
+            }
+        }
+    }, [user])
+
+    useEffect(() => {
+        if (token) {
+            validateToken().then(isValidToken => {
+                if (!isValidToken) {
+                    setToken(null);
+                    setUser(null);
+                    navigate("/login");
+                }
+            });
+        }
+    }, [token])
+
+    useEffect(() => {
+        const apiCalls = async () => {
+            try {
+                setLoader(true)
+                const getFechas = await axios.get(`${backendEnd}fechas/`)
+                if (getFechas.data.status_code !== 200) throw new Error("Error al traer datos de las fechas")
+
+                setFechas(getFechas.data.data)
+            } catch (err) {
+                setErrorAlert(err.toString())
+            }
+            setLoader(false)
+
+        }
+        apiCalls()
+    }, [])
+
+
+
     const volverListado = () => {
         setTickets(null)
         setFecha(null)
+    }
+
+    const parseFecha = (fechaStr) => {
+        const [dia, mes, anio] = fechaStr.split('/').map(Number);
+        return new Date(anio, mes - 1, dia);
     }
 
     const reenviarMail = async (extref) => {
@@ -101,32 +139,43 @@ const VentaEntradas = () => {
                     <>
                         <h2 className='blanco'>Error: {errorAlert}</h2>
                     </>}
-                {fechas && fechas.length > 0 && !tickets &&
+                {fechas && fechas.length > 0 && !tickets && !loader && user &&
                     <div className='ContFechas'>
-                        {fechas.map((fech, i) => {
-                            return (
-                                <div key={i} className='FechaIndCont' onClick={() => buscarTicketsVendidos(fech)}>
-                                    <img className='ImgFecha' src={`${fech.imagen_url}`} alt={`${fech.nombre_evento}}`} />
-                                    <div className='UbiFecha'>
-                                        <IoLocationSharp className='iconCustom' />
-                                        <p>{fech.nombre_lugar}</p>
-                                    </div>
-                                    <p className='NombreFecha'>{fech.nombre_evento}</p>
-                                    <div className='FechaHora'>
-                                        <p>{fech.fecha}</p>
-                                        <p>|</p>
-                                        <p>{fech.hora}HS</p>
-                                    </div>
+                        {fechas.sort((a, b) => parseFecha(b.fecha) - parseFecha(a.fecha)).map((fech, i) => {
 
-                                </div>
-                            )
+                            const hoy = new Date();
+                            const fechaPasada = new Date(hoy);
+                            const diasARestar = 40;
+                            fechaPasada.setDate(hoy.getDate() - diasARestar);
+
+                            if (parseFecha(fech.fecha) >= fechaPasada) {
+                                return (
+                                    <div key={i} className='FechaIndCont' onClick={() => buscarTicketsVendidos(fech)}>
+                                        <img className='ImgFecha' src={`${fech.imagen_url}`} alt={`${fech.nombre_evento}}`} />
+                                        <div className='UbiFecha'>
+                                            <IoLocationSharp className='iconCustom' />
+                                            <p>{fech.nombre_lugar}</p>
+                                        </div>
+                                        <p className='NombreFecha'>{fech.nombre_evento}</p>
+                                        <div className='FechaHora'>
+                                            <p>{fech.fecha}</p>
+                                            <p>|</p>
+                                            <p>{fech.hora}HS</p>
+                                        </div>
+
+                                    </div>
+                                )
+                            }
+
+                            return null
+
                         })}
                     </div>
                 }
 
                 {tickets && fecha &&
                     <div className='ContEntradasVendidas'>
-                        <button className='btn' onClick={() => volverListado()}>Volver a listado de fechas</button>
+                        {user && <button dclassName='btn' onClick={() => volverListado()}>Volver a listado de fechas</button>}
                         <h3>Entradas vendidas para el {fecha.nombre_evento}</h3>
                         <div>
                             <h4>Total de entradas vendidas: {tickets.reduce((sum, ticket) => sum + ticket.cantidad, 0)}</h4>
@@ -141,7 +190,7 @@ const VentaEntradas = () => {
                                     <th scope="col">Importe abonado</th>
                                     <th scope="col">Fecha de compra</th>
                                     <th scope="col">Id. de pago</th>
-                                    <th scope="col">Reenviar mail</th>
+                                    {user && <th scope="col">Reenviar mail</th>}
                                 </tr>
                             </thead>
                             <tbody>
@@ -154,7 +203,7 @@ const VentaEntradas = () => {
                                             <td>{tic.importe_total}</td>
                                             <td>{tic.fecha}</td>
                                             <td>{tic.id_pago}</td>
-                                            <td><button disabled={loader} onClick={() => reenviarMail(tic.external_reference)} className="btn">Reenviar</button></td>
+                                            {user && <td><button disabled={loader} onClick={() => reenviarMail(tic.external_reference)} className="btn">Reenviar</button></td>}
                                         </tr>
                                     )
                                 })}

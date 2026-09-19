@@ -67,12 +67,13 @@ const CrearFecha = ({ fechaEditar, setFechaEditar }) => {
 
     useEffect(() => {
         if (token) {
-            const isValidToken = validateToken();
-            if (!isValidToken) {
-                setToken(null);
-                setUser(null);
-                navigate("/login")
-            }
+            validateToken().then(isValidToken => {
+                if (!isValidToken) {
+                    setToken(null);
+                    setUser(null);
+                    navigate("/login");
+                }
+            });
         }
     }, [token])
 
